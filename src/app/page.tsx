@@ -20,6 +20,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useRouter } from "next/navigation";
+import { getUserInformation } from "@/api/getUserInformation";
 
 const formSchema = z.object({
   grid: z.string(),
@@ -28,6 +30,8 @@ const formSchema = z.object({
 });
 
 export default function Home() {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,21 +40,34 @@ export default function Home() {
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const handleSubmit = async ({
+    grid,
+    period,
+    username,
+  }: z.infer<typeof formSchema>) => {
+    const userInformation = await getUserInformation(username);
+
+    if (userInformation.error === 6) {
+      form.setError("username", {
+        type: "manual",
+        message: "Usuário não encontrado",
+      });
+    }
+
+    router.push(`/collage/?grid=${grid}&period=${period}&username=${username}`);
   };
 
   return (
     <main className="px-8 py-28 w-full h-screen content-center">
-      <div className="flex w-full flex-col text-center gap-14">
+      <div className="flex w-full flex-col text-center items-center gap-14">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">
-            <span className="text-rose-700">Lastfm</span> concerts
+            <span className="text-rose-700">Last.fm</span> concerts
           </h1>
 
           <span>
-            We generate a collage with your top artists based on Lastfm, and how
-            many times you saw every artist live
+            Create a collage of your top artists based on Last.fm and
+            personalize it with how many times you've seen them live!
           </span>
         </div>
 
@@ -127,7 +144,11 @@ export default function Home() {
                     <FormControl>
                       <Input placeholder="Lastfm username" {...field} />
                     </FormControl>
-                    <FormMessage />
+                    {form.formState.errors.username && (
+                      <FormMessage>
+                        {form.formState.errors.username.message}
+                      </FormMessage>
+                    )}
                   </FormItem>
                 );
               }}
