@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { getUserInformation } from "@/api/getUserInformation";
+import { userInfo } from "os";
 
 const formSchema = z.object({
   grid: z.string(),
@@ -47,14 +48,23 @@ export default function Home() {
   }: z.infer<typeof formSchema>) => {
     const userInformation = await getUserInformation(username);
 
-    if (userInformation.error === 6) {
-      form.setError("username", {
+    if (!userInformation) {
+      return form.setError("username", {
         type: "manual",
-        message: "Usuário não encontrado",
+        message: "Failed to fetch lastfm account",
       });
     }
 
-    router.push(`/collage/?grid=${grid}&period=${period}&username=${username}`);
+    if (userInformation.error === 6) {
+      return form.setError("username", {
+        type: "manual",
+        message: "Account not found",
+      });
+    }
+
+    return router.push(
+      `/collage/?grid=${grid}&period=${period}&username=${username}`
+    );
   };
 
   return (
