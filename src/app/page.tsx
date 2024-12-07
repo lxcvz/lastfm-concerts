@@ -22,7 +22,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { getUserInformation } from "@/api/getUserInformation";
-import { userInfo } from "os";
 
 const formSchema = z.object({
   grid: z.string(),
@@ -62,9 +61,7 @@ export default function Home() {
       });
     }
 
-    return router.push(
-      `/collage/?grid=${grid}&period=${period}&username=${username}`
-    );
+    return router.push(`/collage/${username}?grid=${grid}&period=${period}`);
   };
 
   return (
@@ -72,7 +69,11 @@ export default function Home() {
       <div className="flex w-full flex-col text-center items-center gap-14">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">
-            <span className="text-rose-700">Last.fm</span> concerts
+            <span className="bg-gradient-to-r from-red-500 via-red-900 to-black text-transparent bg-clip-text">
+              All my live
+            </span>
+
+            <span> gigs</span>
           </h1>
 
           <span>
