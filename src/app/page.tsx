@@ -78,7 +78,7 @@ export default function Home() {
 
           <span>
             Create a collage of your top artists based on Last.fm and
-            personalize it with how many times you&apos;ve seen them live!
+            personalize it with how many times you&apos;ve seen them live
           </span>
         </div>
 
