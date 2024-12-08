@@ -19,14 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
-        <Adsense />
-      </Head>
       <body className={inter.className}>
         <div className="bg-gradient-to-tl from-neutral-200 via-neutral-100 to-white">
           {children}
         </div>
       </body>
+
+      <Adsense />
     </html>
   );
 }
