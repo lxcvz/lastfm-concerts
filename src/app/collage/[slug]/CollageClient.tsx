@@ -72,7 +72,7 @@ const CollageClient = ({ data }: { data: any }) => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-4 w-full"
           >
-            <h1 className="text-xl font-bold text-center"> Form</h1>
+            <h1 className="text-xl font-bold text-center">Your top artists</h1>
             {data.map((artist: any, index: number) => (
               <FormField
                 key={artist.name}
