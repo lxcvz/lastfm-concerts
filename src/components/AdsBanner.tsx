@@ -5,11 +5,12 @@ import { useEffect, useRef } from "react";
 
 export function AdsBanner() {
   const pathname = usePathname();
+  console.log("🚀 ~ AdsBanner ~ pathname:", pathname);
   const adsLoaded = useRef(false);
 
   useEffect(() => {
     const loadAd = () => {
-      if (typeof window !== "undefined" && window.adsbygoogle) {
+      if (typeof window !== "undefined") {
         window.adsbygoogle = window.adsbygoogle || [];
         window.adsbygoogle.push({});
         adsLoaded.current = true;
