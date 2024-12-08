@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 export function Adsense() {
   return (
     <script
