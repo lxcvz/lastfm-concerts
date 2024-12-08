@@ -76,7 +76,8 @@ export default function PrivacyPolicy() {
                   Since we do not collect personal data, there are no security
                   measures specifically for protecting personal information.
                   However, any data fetched from the Last.fm API is transmitted
-                  securely in accordance with Last.fm's terms and conditions.
+                  securely in accordance with Last.fm&apos;s terms and
+                  conditions.
                 </AccordionContent>
               </AccordionItem>
 
