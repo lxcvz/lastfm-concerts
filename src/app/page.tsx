@@ -66,7 +66,7 @@ export default function Home() {
   };
 
   return (
-    <main className="px-8 py-28 w-full h-screen content-center">
+    <main className="px-8 py-28 w-full content-center">
       <div className="flex w-full flex-col text-center items-center gap-14">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">
@@ -74,7 +74,7 @@ export default function Home() {
               All my live
             </span>
 
-            <span> gigs</span>
+            <span> gigs collage</span>
           </h1>
 
           <span>
