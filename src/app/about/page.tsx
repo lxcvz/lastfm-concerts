@@ -14,7 +14,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen  py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-yellow-500">
+        <h1 className="text-5xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-red-900 to-black">
           About Concert Collage Generator
         </h1>
 
@@ -108,7 +108,7 @@ export default function AboutPage() {
               </p>
               <button
                 onClick={handleClick}
-                className="w-full bg-gradient-to-r from-pink-500 to-yellow-500 text-white font-bold py-2 px-4 rounded-full hover:from-pink-600 hover:to-yellow-600 transition duration-300"
+                className="w-full bg-gradient-to-r from-black via-red-900 to-red-500 text-white font-bold py-2 px-4 rounded-full hover:from-red-700 hover:to-black transition duration-300"
               >
                 Create Your Collage Now
               </button>
