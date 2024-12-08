@@ -4,6 +4,8 @@ import "./globals.css";
 import Script from "next/script";
 import { Adsense } from "@/components/Adsense";
 import Head from "next/head";
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="bg-gradient-to-tl from-neutral-200 via-neutral-100 to-white">
+        <div className="bg-gradient-to-tl from-gray-100 via-neutral-100 to-gray-100 min-h-screen flex flex-col justify-between">
+          <Header />
           {children}
+          <Footer />
         </div>
       </body>
 
