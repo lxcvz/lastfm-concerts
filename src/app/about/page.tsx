@@ -27,7 +27,7 @@ export default function AboutPage() {
               </h2>
               <p>
                 Concert Collage Generator creates personalized image collages
-                showcasing how many times you've seen your favorite artists
+                showcasing how many times you&apos;ve seen your favorite artists
                 live. We combine your concert history with vibrant visuals to
                 create a stunning representation of your music journey.
               </p>
