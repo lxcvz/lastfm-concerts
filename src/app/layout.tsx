@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import { Adsense } from "@/components/Adsense";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      <Head>
         <Adsense />
-      </head>
+      </Head>
       <body className={inter.className}>
         <div className="bg-gradient-to-tl from-neutral-200 via-neutral-100 to-white">
           {children}
