@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { getUserInformation } from "@/api/getUserInformation";
+import { AdsBanner } from "@/components/AdsBanner";
 
 const formSchema = z.object({
   grid: z.string(),
@@ -66,6 +67,10 @@ export default function Home() {
 
   return (
     <main className="px-8 py-28 w-full h-screen content-center">
+      <div className="bg-black">
+        <AdsBanner />
+      </div>
+
       <div className="flex w-full flex-col text-center items-center gap-14">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">
