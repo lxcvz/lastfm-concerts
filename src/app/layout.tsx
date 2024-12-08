@@ -12,6 +12,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "All my gigs",
   description: "Create a lastfm collage from your gigs already viewd",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico", // Opcional, para dispositivos Apple
+  },
 };
 
 export default function RootLayout({
