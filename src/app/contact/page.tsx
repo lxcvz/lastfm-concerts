@@ -76,10 +76,10 @@ export default function ContactPage() {
     <div className="bg-background flex flex-col">
       <main className="flex-grow container mx-auto px-4 py-8 md:py-6">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contato</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact us</h1>
           <p className="text-xl mb-8 text-muted-foreground">
-            Tem alguma pergunta? Estamos aqui para ajudar. Preencha o formulário
-            abaixo e entraremos em contato em breve.
+            Have any questions? We're here to help. Fill out the form below, and
+            we'll get in touch with you shortly.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
