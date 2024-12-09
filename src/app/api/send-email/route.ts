@@ -13,6 +13,7 @@ interface EmailRequest {
   name: string;
   email: string;
   message: string;
+  subject: string;
 }
 
 export async function POST(req: Request, res: NextApiResponse) {
@@ -24,9 +25,9 @@ export async function POST(req: Request, res: NextApiResponse) {
   }
 
   const body: EmailRequest = await req.json();
-  const { name, email, message } = body;
+  const { name, email, message, subject } = body;
 
-  if (!name || !email || !message) {
+  if (!name || !email || !message || !subject) {
     return NextResponse.json(
       { error: "Todos os campos são obrigatórios." },
       { status: 500 }
@@ -39,7 +40,7 @@ export async function POST(req: Request, res: NextApiResponse) {
       {
         from: `Contato <no-reply@${process.env.NEXT_PUBLIC_MAILGUN_DOMAIN}>`,
         to: "lxcvz99@gmail.com", // Substitua pelo seu email
-        subject: "All my gigs contact",
+        subject,
         text: `Nome: ${name}\nEmail: ${email}\nMensagem: ${message}`,
       }
     );

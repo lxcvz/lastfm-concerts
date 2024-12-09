@@ -1,16 +1,15 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
+import { Input } from "@/components/ui/input";
 
 interface FormData {
   name: string;
   email: string;
+  subject: string;
   message: string;
 }
 
@@ -18,12 +17,13 @@ export default function ContactPage() {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
+    subject: "",
     message: "",
   });
 
   const { toast } = useToast();
 
-  const [status, setStatus] = useState<string | null>(null);
+  const [hasSent, setHasSent] = useState<boolean>(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -34,7 +34,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setStatus(null);
+    setHasSent(true);
 
     try {
       const response = await fetch("/api/send-email", {
@@ -44,22 +44,27 @@ export default function ContactPage() {
       });
 
       const result = await response.json();
-      if (response.ok) {
-        setStatus("Email enviado com sucesso!");
-        setFormData({ name: "", email: "", message: "" });
-        toast({
-          title: "Uhuuu!",
-          description: "Your message has been sent.",
-        });
-      } else {
-        toast({
-          title: "Oops! Something went wrong.",
-          description: result?.error,
-        });
-        setStatus(`Erro: ${result.error}`);
+
+      if (!response.ok || result.error) {
+        setHasSent(false);
+
+        throw new Error("Something went wrong");
       }
+
+      setFormData({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
+
+      setHasSent(false);
+
+      toast({
+        title: "Uhuuu!",
+        description: "Your message has been sent.",
+      });
     } catch (error) {
-      console.error("Erro ao enviar o email:", error);
       toast({
         title: "Oops! Something went wrong.",
         description: (error as Error).message,
@@ -68,76 +73,86 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex items-center justify-center">
-      <Card className="w-full max-w-md bg-white/80 backdrop-blur-sm shadow-xl transition-all duration-300 hover:shadow-2xl">
-        <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 via-red-900 to-black">
-            Contact Us
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
+    <div className="min-h-screen bg-background flex flex-col">
+      <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Contato</h1>
+          <p className="text-xl mb-8 text-muted-foreground">
+            Tem alguma pergunta? Estamos aqui para ajudar. Preencha o formulário
+            abaixo e entraremos em contato em breve.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Name
+                </label>
+                <Input
+                  id="name"
+                  name="name"
+                  required
+                  onChange={handleChange}
+                  value={formData.name}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Email
+                </label>
+                <Input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  onChange={handleChange}
+                  value={formData.email}
+                />
+              </div>
+            </div>
+            <div>
               <label
-                htmlFor="name"
-                className="text-sm font-medium text-gray-700"
+                htmlFor="subject"
+                className="block text-sm font-medium mb-2"
               >
-                Name
+                Subject
               </label>
               <Input
-                id="name"
-                type="text"
-                placeholder="Your name"
-                value={formData.name}
-                onChange={handleChange}
+                id="subject"
+                name="subject"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
+                onChange={handleChange}
+                value={formData.subject}
               />
             </div>
-            <div className="space-y-2">
-              <label
-                htmlFor="email"
-                className="text-sm font-medium text-gray-700"
-              >
-                Email
-              </label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Your email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
-              />
-            </div>
-            <div className="space-y-2">
+            <div>
               <label
                 htmlFor="message"
-                className="text-sm font-medium text-gray-700"
+                className="block text-sm font-medium mb-2"
               >
                 Message
               </label>
               <Textarea
                 id="message"
-                placeholder="Your message"
-                value={formData.message}
-                onChange={handleChange}
+                name="message"
+                rows={5}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"
-                rows={4}
+                onChange={handleChange}
+                value={formData.message}
               />
             </div>
-            <Button
-              type="submit"
-              className="w-full bg-gradient-to-r from-red-500 via-red-900 to-black text-white font-semibold py-2 px-4 rounded-md hover:from-red-800 hover:to-black focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 transition-all duration-300 flex items-center justify-center"
-            >
-              <Send className="w-4 h-4 mr-2" />
-              Send Message
+            <Button type="submit" className="w-full" disabled={hasSent}>
+              {hasSent ? "Sending..." : "Submit"}
             </Button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </main>
     </div>
   );
 }
