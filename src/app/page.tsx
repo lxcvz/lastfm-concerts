@@ -22,7 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { getUserInformation } from "@/api/getUserInformation";
-import { AdsBanner } from "@/components/AdsBanner";
+import { useState } from "react";
 
 const formSchema = z.object({
   grid: z.string(),
@@ -31,6 +31,7 @@ const formSchema = z.object({
 });
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,22 +63,22 @@ export default function Home() {
       });
     }
 
+    setLoading(true);
+
     return router.push(`/collage/${username}?grid=${grid}&period=${period}`);
   };
 
   return (
-    <main className="px-8 py-28 w-full content-center">
+    <main className="px-8 py-28 w-full content-center bg-white">
       <div className="flex w-full flex-col text-center items-center gap-14">
         <div className="flex flex-col gap-4">
-          <h1 className="text-3xl font-bold">
-            <span className="bg-gradient-to-r from-red-500 via-red-900 to-black text-transparent bg-clip-text">
-              All my live
+          <h1 className="text-5xl font-bold">
+            <span className="bg-black text-transparent bg-clip-text">
+              All my live Gigs Collage
             </span>
-
-            <span> gigs collage</span>
           </h1>
 
-          <span>
+          <span className="text-gray-500">
             Create a collage of your top artists based on Last.fm and
             personalize it with how many times you&apos;ve seen them live!
           </span>
@@ -154,7 +155,7 @@ export default function Home() {
                 return (
                   <FormItem>
                     <FormControl>
-                      <Input placeholder="Lastfm username" {...field} />
+                      <Input placeholder="Last.fm username" {...field} />
                     </FormControl>
                     {form.formState.errors.username && (
                       <FormMessage>
@@ -166,7 +167,7 @@ export default function Home() {
               }}
             />
             <Button type="submit" className="w-full">
-              Submit
+              {loading ? "Loading..." : "Submit"}
             </Button>
           </form>
         </Form>

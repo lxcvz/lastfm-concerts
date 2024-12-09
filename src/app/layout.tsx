@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/favicon.ico", // Opcional, para dispositivos Apple
+    apple: "/favicon.ico",
   },
 };
 
@@ -27,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Toaster />
-        <div className="bg-gradient-to-tl from-gray-100 via-neutral-100 to-gray-100 min-h-screen flex flex-col justify-between">
+        <div className="bg-white min-h-screen flex flex-col justify-between">
           <Header />
           {children}
           <Footer />

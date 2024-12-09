@@ -9,7 +9,7 @@ export function Header() {
 
   return (
     <header className="w-full border-b border-gray-200">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div className="container max-w-7xl mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="flex items-center space-x-2">
           <span className="text-2xl font-bold bg-gradient-to-r from-red-500 via-red-900 to-black text-transparent bg-clip-text">
             Allmygigs

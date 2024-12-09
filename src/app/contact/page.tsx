@@ -73,7 +73,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-background flex flex-col">
+    <div className="bg-white flex flex-col">
       <main className="flex-grow container mx-auto px-4 py-8 md:py-6">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact us</h1>
