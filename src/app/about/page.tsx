@@ -21,7 +21,9 @@ export default function AboutPage() {
 
           <ol className="list-decimal pl-6 space-y-4">
             <li>Connect your Last.fm account to fetch your top artists.</li>
-            <li>Input the number of times you've seen each artist live.</li>
+            <li>
+              Input the number of times you&apos;ve seen each artist live.
+            </li>
             <li>
               Our algorithm creates a personalized collage based on your data.
             </li>
