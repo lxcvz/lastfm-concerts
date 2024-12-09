@@ -78,8 +78,8 @@ export default function ContactPage() {
         <div className="max-w-3xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact us</h1>
           <p className="text-xl mb-8 text-muted-foreground">
-            Have any questions? We're here to help. Fill out the form below, and
-            we'll get in touch with you shortly.
+            Have any questions? We&apos;re here to help. Fill out the form
+            below, and we&apos;ll get in touch with you shortly.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
